@@ -1,54 +1,46 @@
-// lesson3_urooj.kt — Classes & Objects (customized)
-// Demonstrates: inheritance, interfaces, data classes, companion objects, constructors, extension functions
+// lesson1_urooj.kts — Kotlin Basics (personalized demo)
+// Demonstrates: vals/vars, string templates, null-safety, Elvis operator, loops, conditionals, and collections
 
-interface Describable {
-    fun describe(): String
-}
+// Immutable (val) vs Mutable (var)
+val appName: String = "Intro to Kotlin by Urooj"   // <-- Replace "Urooj" with your own name if needed
+var version = 1
 
-open class Book(val title: String, val author: String) : Describable {
-    init {
-        require(title.isNotEmpty()) { "Book title cannot be empty" }
-    }
+println("Welcome to $appName v$version")
 
-    open fun type(): String = "General"
+// String templates & expressions
+val x = 10
+val y = 4
+println("x - y = ${x - y}")
+println("x * y = ${x * y}")
 
-    override fun describe(): String = "\"$title\" by $author"
+// Null-safety: Safe call (?.) + Elvis (?:)
+val maybeText: String? = null
+val textLength = maybeText?.length ?: 0
+println("Safe length = $textLength")
 
-    companion object {
-        fun fromPair(pair: Pair<String, String>) = Book(pair.first, pair.second)
-    }
-}
+// Range & Loop
+print("Counting up: ")
+for (i in 1..5) print("$i ")
+println()
 
-class CourseBook(title: String, author: String, val field: String) : Book(title, author) {
-    override fun type(): String = "Course Book: $field"
-}
+// Conditional Expression
+val temperature = 68
+val weather = if (temperature > 75) "Warm" else "Cool"
+println("Weather is: $weather")
 
-data class Reader(val name: String, var age: Int) : Describable {
-    constructor(name: String) : this(name, 0)
+// Collections
+val scores = arrayListOf(85, 90, 78)
+scores.add(95)
+println("Scores: $scores | Total = ${scores.size}")
 
-    override fun describe(): String = "Reader(name=$name, age=$age)"
-}
+val passed = scores.filter { it >= 80 }
+println("Passed Scores: $passed")
 
-fun Book.details(): String = "Book: ${title} by ${author} [${type()}]"
+// Function Definition
+fun greetUser(name: String) = println("Hello, $name! Welcome to Kotlin.")
+greetUser("Urooj")   // <-- Replace your name here if needed
 
-fun main() {
-    val mainBook = Book("Kotlin Basics", "JetBrains")
-    val course = CourseBook("Kotlin for Developers", "JetBrains", "Programming")
+// Mutable variable update
+version += 1
+println("Exiting from $appName v$version")
 
-    println(mainBook.details())
-    println(course.details())
-
-    val extraBook = Book.fromPair("Advanced Kotlin" to "Marcin Moskala")
-    println(extraBook.describe())
-
-    val r1 = Reader("Urooj", 25)
-    val r2 = r1.copy(age = 26)
-
-    println(r1)
-    println("r1 == r2? ${r1 == r2}")
-    val (n, a) = r2
-    println("Destructured -> name=$n age=$a")
-
-    val things: List<Describable> = listOf(mainBook, course, r1)
-    things.forEach { println("Describable: ${it.describe()}") }
-}
