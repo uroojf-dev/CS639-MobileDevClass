@@ -1,4 +1,7 @@
-Links to each lesson
+Links to each lesson and MIDTERM
+
+MIDTERM: CircleApp
+https://github.com/uroojf-dev/CS639-MobileDevClass/tree/main/CircleApp
 
 HW1 - About Me (link)
 https://github.com/uroojf-dev/AboutMeUF
